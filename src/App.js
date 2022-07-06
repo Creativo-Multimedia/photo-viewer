@@ -3,14 +3,20 @@ import './App.css'
 import data from './data'
 
 function App() {
+  const itemsPerPage = 28
   const [imgOnViewer, setImgOnViewer] = useState(null)
   const [openViewer, setOpenViewer] = useState(false)
+  const [imgsLoaded, setImgsLoaded] = useState(itemsPerPage)
+  const [actualPage, setActualPage] = useState(2)
 
+  const loadImages = () => {
+    setActualPage(actualPage + 1)
+    setImgsLoaded(actualPage * itemsPerPage)
+  }
   const handleImgClick = (e) => {
     setImgOnViewer(e.target.src)
     setOpenViewer(true)
   }
-
   const handleViewerClick = () => {
     setImgOnViewer(null)
     setOpenViewer(false)
@@ -21,9 +27,11 @@ function App() {
       <div className='content-wrap'>
         <div className='images-grid'>
           {data.map((el, idx) => {
-            return (
-              <img src={`assets/${el}`} key={idx} alt='Congreso' onClick={handleImgClick} />
-            )
+            if (idx < imgsLoaded) {
+              return (
+                <img src={`assets/${el}`} key={idx} alt='Congreso' onClick={handleImgClick} />
+              )
+            }
           })}
         </div>
         {openViewer && (
@@ -32,6 +40,7 @@ function App() {
             <i className="fa fa-times close-icon"></i>
           </div>
         )}
+        {!(imgsLoaded >= data.length) && <button onClick={loadImages} className='load-more-btn'>Cargar más</button>}
       </div>
     </div>
   )
