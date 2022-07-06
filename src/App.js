@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import './App.css'
+import data from './data'
 
 function App() {
+  const [imgOnViewer, setImgOnViewer] = useState(null)
+  const [openViewer, setOpenViewer] = useState(false)
+
+  const handleImgClick = (e) => {
+    setImgOnViewer(e.target.src)
+    setOpenViewer(true)
+  }
+
+  const handleViewerClick = () => {
+    setImgOnViewer(null)
+    setOpenViewer(false)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='content-wrap'>
+        <div className='images-grid'>
+          {data.map((el, idx) => {
+            return (
+              <img src={`assets/${el}`} key={idx} alt='Congreso' onClick={handleImgClick} />
+            )
+          })}
+        </div>
+        {openViewer && (
+          <div className='img-viewer' onClick={handleViewerClick}>
+            <img src={imgOnViewer} alt='Congreso' />
+            <i className="fa fa-times close-icon"></i>
+          </div>
+        )}
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
