@@ -44,17 +44,18 @@ body {
   height: 100vh;
   overflow: hidden;
   background: #343434;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  display: none;
 }
 
 .img-viewer img {
   width: 90%;
   height: auto;
   border-radius: 5px;
+  z-index: 9999;
 }
 
 .img-viewer .close-icon {
@@ -107,6 +108,12 @@ body {
   .img-viewer .close-icon {
     right: 1rem;
     top: 1rem;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .img-viewer {
+    display: flex;
   }
 }
 

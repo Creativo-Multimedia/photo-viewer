@@ -3,6 +3,7 @@ import './App.css'
 import data from './data'
 
 function App() {
+  const isMobile = window.innerWidth < 992
   const itemsPerPage = 28
   const [imgOnViewer, setImgOnViewer] = useState(null)
   const [openViewer, setOpenViewer] = useState(false)
@@ -34,7 +35,7 @@ function App() {
             }
           })}
         </div>
-        {openViewer && (
+        {openViewer && !isMobile && (
           <div className='img-viewer' onClick={handleViewerClick}>
             <img src={imgOnViewer} alt='Congreso' />
             <i className="fa fa-times close-icon"></i>
