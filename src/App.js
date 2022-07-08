@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import data from './data'
+import ScrollArrow from './components/ScrollArrow'
 
 function App() {
   const isMobile = window.innerWidth < 992
@@ -26,6 +27,7 @@ function App() {
   return (
     <div className="App">
       <div className='content-wrap'>
+        <ScrollArrow />
         <div className='images-grid'>
           {data.map((el, idx) => {
             if (idx < imgsLoaded) {
